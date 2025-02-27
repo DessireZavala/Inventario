@@ -67,3 +67,4 @@ def agregar_producto():
 # Otros endpoints, como login, etc.
 if __name__ == '__main__':
     app.run(debug=True)
+    
