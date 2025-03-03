@@ -8,7 +8,13 @@ from werkzeug.utils import secure_filename
 # Crear la aplicación Flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecreto'  # Clave secreta para proteger sesiones y formularios
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/victor jireh/Desktop/Inventario/instance/inventario.db'  # Ruta de la base de datos
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Inventario/instance/inventario.db'
+#RUTAS RUTAS RUTAS RUTAS RUTAS
+# Dess      'sqlite:///D:/Inventario/instance/inventario.db'
+# Vic       'sqlite:///C:/Users/victor jireh/Desktop/Inventario/instance/inventario.db'  # Ruta de la base de datos
+# Hannya    
+# Hurtado   
+# Yovis     
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'  # Ruta donde se guardarán las imágenes
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}  # Extensiones permitidas
