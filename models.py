@@ -8,6 +8,7 @@ class Producto(db.Model):
     nombre = db.Column(db.String(100))
     cantidad = db.Column(db.Integer, default=0)
     imagen_url = db.Column(db.String(200))  # URL de la imagen
+    categoria = db.Column(db.String(100)) #nueva columna para la categoría
 
 # Modelo para el Usuario (con rol)
 class Usuario(db.Model):

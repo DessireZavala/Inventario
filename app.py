@@ -1,3 +1,5 @@
+# app.py
+
 from flask_login import login_required
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -14,7 +16,6 @@ app = Flask(__name__)
 # Configuración de la base de datos
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Inventario/instance/inventario.db'  # Ruta absoluta correcta
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 
 # Configuración para la carga de imágenes
 app.config['UPLOAD_FOLDER'] = 'static/images'  # Directorio donde se guardarán las imágenes
@@ -47,6 +48,7 @@ def agregar_producto():
         # Obtener los datos del formulario
         nombre = request.form['nombre']
         cantidad = request.form['cantidad']
+        categoria = request.form['categoria']  # Obtener la categoría seleccionada
         imagen = request.files['imagen']
 
         # Verificar si el archivo tiene una extensión válida
@@ -56,7 +58,7 @@ def agregar_producto():
             imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))  # Guardar la imagen en el servidor
 
             # Crear un nuevo producto y agregarlo a la base de datos
-            nuevo_producto = Producto(nombre=nombre, cantidad=cantidad, imagen_url=filename)
+            nuevo_producto = Producto(nombre=nombre, cantidad=cantidad, categoria=categoria, imagen_url=filename)
             db.session.add(nuevo_producto)
             db.session.commit()
 
@@ -64,7 +66,5 @@ def agregar_producto():
 
     return render_template('agregar_producto.html')
 
-# Otros endpoints, como login, etc.
 if __name__ == '__main__':
     app.run(debug=True)
-    
