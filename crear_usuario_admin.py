@@ -4,7 +4,7 @@ from app import db, Usuario, bcrypt
 db.create_all()
 
 # Crear el hash de la contraseña
-password_hash = bcrypt.generate_password_hash("admin123").decode('utf-8')
+password_hash = bcrypt.generate_password_hash("123").decode('utf-8')
 
 # Crear el nuevo usuario
 usuario_admin = Usuario(
