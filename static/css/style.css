@@ -6,6 +6,7 @@
     --background-light: #f4f4f4;
     --text-dark: #333;
     --white: #ffffff;
+    --strong-white: #e6e0e0;
     
     /** Variables de tamaño */
     --sidebar-width: 60px;
@@ -60,7 +61,7 @@
   .sidebar-left i:hover {
     color: var(--primary-color);
   }
-  
+  /**HEADER*/
   .header {
     background-color: var(--secondary-color);
     color: var(--white);
@@ -74,8 +75,54 @@
     padding: 0 20px;
     box-shadow: var(--box-shadow);
     z-index: 1000;
+    justify-content: space-between;
   }
   
+    .categories a {
+        margin-right: 15px;
+        text-decoration: none;
+        color: var(--background-light);
+      }
+
+      .categories a:hover{
+        color: var(--primary-color);
+      }
+/**BARRA DE BUSQUEDA*/
+.search-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #febd69;
+    border-radius: 20px;
+    padding: 3px;
+    width: 100%;
+    max-width: 250px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-container input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 6px 8px;
+    font-size: 14px;
+    border-radius: 20px 0 0 20px;
+  }
+  
+  .search-container button {
+    background: #febd69;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+  }
+  
+  .search-container i {
+    color: white;
+    font-size: 14px;
+  }
+    
+/***/    
   .main-content {
     margin-top: 60px;
     flex-grow: 1;
@@ -97,7 +144,11 @@
     background-color: var(--danger-color);
     color: var(--white);
   }
-  
+  /**.sidebar-right*/
+  .sidebar-right {
+    border: 1px solid;
+    background-color: var(--strong-white);
+  }
   /* Estilos específicos de login */
   .auth-circle {
     width: 80px;
@@ -112,8 +163,14 @@
     box-shadow: 0 0 0 3px rgba(241, 176, 76, 0.2);
   }
   
+  
   .auth-btn {
     background: var(--primary-color);
+    border-radius: 5px;
+    border: solid 1px #333;
+    text-align: center;
+    margin-top: 1rem;
+    
   }
   
   .auth-btn:hover {
