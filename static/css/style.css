@@ -104,209 +104,87 @@ body {
     border-radius: 4px;
 }
 
-.login-container {
-    background-color: white;
-    padding: 30px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-.login-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-.form-group {
-    margin-bottom: 15px;
-}
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-.btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    border-radius: 4px;
-}
 
-.form-container {
-    background-color: white;
-    padding: 30px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+/**Login*/
+.auth-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     width: 400px;
-    text-align: center;
-}
-.form-container h2 {
-    margin-bottom: 20px;
-}
-.form-group {
-    margin-bottom: 20px;
-    position: relative;
-}
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-input[type="text"], input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-.image-upload {
-    position: relative;
-    border: 2px dashed #ccc;
-    padding: 40px;
-    border-radius: 8px;
-    background-color: #f0f0f0;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-.image-upload i {
-    font-size: 50px;
-    color: #888;
-}
-.image-upload input[type="file"] {
-    display: none;
-}
-.image-upload:hover {
-    background-color: #e0e0e0;
-}
-.btn {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.btn:hover {
-    background-color: #0056b3;
+    margin: 0 auto;
 }
 
-/*login*/
-.text-center{
-    margin-bottom: 33px;
-}
-.login-box {
-    background: #FFFFFF;
-    width: 100%; /* Cambia el ancho a 100% para que se ajuste al tamaño de la pantalla */
-    max-width: 400px; /* Mantén un máximo de 400px para pantallas más grandes */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.auth-logo {
     text-align: center;
+    margin-bottom: 2rem;
 }
 
-.logo .circle {
-    width: 100px;
-    height: 100px;
-    background: #ccc;
+.auth-circle {
+    width: 80px;
+    height: 80px;
+    background: #F1B04C;
     border-radius: 50%;
-    margin: 0 auto 20px;
-}
- /* Nuevo diseño para el login */
- .auth-container {
-    background: #FFFFFF;
-    width: 100%; /* Ajusta el tamaño al 100% */
-    max-width: 700px; /* Máximo de 700px en pantallas grandes */
-    height: 100%; /* Ajusta el tamaño al 100% */
-    max-height: 550px; /* Máximo de 700px en pantallas grandes */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    position: absolute;
-    top: 50%;  /* Coloca el centro de la caja a la mitad de la altura */
-    left: 50%; /* Coloca el centro de la caja a la mitad del ancho */
-    transform: translate(-50%, -50%); /* Desplaza la caja hacia atrás para centrarla completamente */
-}
-
-.auth-logo .auth-circle {
-    width: 100px;
-    height: 100px;
-    background: #ccc;
-    border-radius: 50%;
-    margin: 0 auto 20px;
+    margin: 0 auto;
 }
 
 .auth-form-group {
-    margin-bottom: 33px;
-    text-align: center;
-    justify-content: center; /* Centra los elementos en el contenedor */
+    margin-bottom: 1.5rem;
 }
 
 .auth-form-group label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 20px;  /* Aumenta el tamaño de la fuente */
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
 }
 
-.auth-form-group input {
-    margin: 0 auto; /* Centra el input */
-    width: 70%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #FFE5BC;
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #F1B04C;
+    outline: none;
 }
 
 .auth-btn {
-    font-size: 18px;  /* Aumenta el tamaño de la fuente */
-    background-color: #F5C77E;
-    color: white;
-    padding: 10px;
-    width: 60%;
+    width: 100%;
+    padding: 0.75rem;
+    background: #F1B04C;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .auth-btn:hover {
-    background-color: #f4ba5d;
+    background: #e6a245;
 }
 
-/* Media Queries para pantallas pequeñas */
-@media (max-width: 768px) {
-    .auth-container {
-        width: 90%; /* Hace el contenedor más pequeño en pantallas móviles */
-        max-width: 500px; /* Limita el tamaño máximo en pantallas móviles */
-    }
-
-    .auth-form-group input {
-        width: 90%; /* Los inputs ocupan un 90% en pantallas pequeñas */
-    }
-
-    .auth-btn {
-        width: 80%; /* Botón más grande en pantallas pequeñas */
-    }
-
-    .auth-logo .auth-circle {
-        width: 80px; /* Reduce el tamaño del círculo en pantallas pequeñas */
-        height: 80px;
-    }
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    color: white;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    max-width: 90%;
+    text-align: center;
+    background: #333;
+    border-left: 4px solid #F1B04C;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-@media (max-width: 480px) {
-    .auth-container {
-        width: 90%; /* Reducción aún mayor en pantallas pequeñas */
-    }
-
-    .auth-form-group input {
-        width: 90%; /* Asegura que el input ocupe todo el ancho disponible */
-    }
-
-    .auth-btn {
-        width: 100%; /* Botón que ocupa todo el ancho */
-    }
+.alert-show {
+    opacity: 1;
 }
