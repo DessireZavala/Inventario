@@ -1,5 +1,9 @@
 body {
-           
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(160deg, #F1B04C 50%, white 50%);
+    overflow: hidden;
+    min-height: 100vh;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -107,12 +111,14 @@ body {
 
 /**Login*/
 .auth-container {
+    
+    max-height: fit-content;
+
     background: white;
     padding: 2.5rem;
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     width: 400px;
-    margin: 0 auto;
 }
 
 .auth-logo {
