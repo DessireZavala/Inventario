@@ -1,10 +1,13 @@
 @echo off
 echo Instalando dependencias...
-pip install flask 
-flask-login 
-flask-sqlalchemy 
-flask-migrate 
-werkzeug
+pip install flask
+pip install flask-login
+pip install flask-sqlalchemy
+pip install flask-migrate
+pip install flask-bcrypt
+pip install werkzeug
+pip install sqlalchemy
+pip install alembic
 
 echo.
 echo Instalación completada!
