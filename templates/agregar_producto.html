@@ -1,48 +1,114 @@
 <!-- templates/agregar_producto.html -->
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Producto</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-
+    <link rel="stylesheet" href="/static/css/formprod.css">
     <style>
-        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .background div {
+            position: absolute;
+            background-color: #f4b459;
+            opacity: 0.5;
+            border-radius: 50%;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            width: 90%;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .image-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px dashed #ccc;
+            padding: 15px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .image-upload i {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #bbb;
+        }
     </style>
 </head>
 <body>
-
-<div class="form-container">
-    <h2>Agregar Producto</h2>
-    <form method="POST" action="/agregar_producto" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="nombre">Nombre del Producto:</label>
-            <input type="text" id="nombre" name="nombre" required>
-        </div>
-        <div class="form-group">
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" required>
-        </div>
-        <div class="form-group">
-            <label for="categoria">Categoría:</label>
-            <select id="categoria" name="categoria" required>
-                <option value="herramientas">Herramientas</option>
-                <option value="pintura">Pintura</option>
-                <option value="repuestos">Repuestos</option>
-                <!-- Puedes añadir más categorías si lo deseas -->
-            </select>
-        </div>
-        <div class="form-group image-upload">
-            <label for="imagen">Imagen del Producto:</label>
-            <input type="file" id="imagen" name="imagen" accept="image/*" required>
-            <i class="fas fa-plus"></i> <!-- Ícono de más para indicar que se debe subir una imagen -->
-            <p>Haz clic aquí para subir la imagen</p>
-        </div>
-        <button type="submit" class="btn">Agregar Producto</button>
-    </form>
-</div>
-
+    <div class="background">
+        <div style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
+        <div style="width: 150px; height: 150px; top: 5%; left: 50%;"></div>
+        <div style="width: 100px; height: 100px; bottom: 20%; left: 10%;"></div>
+        <div style="width: 250px; height: 250px; bottom: 5%; right: 10%;"></div>
+    </div>
+    <div class="form-container">
+        <h2>Agregar Producto</h2>
+        <form method="POST" action="/agregar_producto" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nombre">Nombre del Producto:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" required>
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="herramientas">Herramientas</option>
+                    <option value="pintura">Pintura</option>
+                    <option value="repuestos">Repuestos</option>
+                </select>
+            </div>
+            <div class="form-group image-upload">
+                <label for="imagen">Imagen del Producto:</label>
+                <input type="file" id="imagen" name="imagen" accept="image/*" required>
+                <i class="fas fa-plus"></i>
+                <p>Haz clic aquí para subir la imagen</p>
+            </div>
+            <button type="submit" class="btn">Agregar Producto</button>
+        </form>
+    </div>
 </body>
 </html>
