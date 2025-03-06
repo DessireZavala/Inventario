@@ -90,38 +90,48 @@
       }
 /**BARRA DE BUSQUEDA*/
 .search-container {
-    display: flex;
-    align-items: center;
-    background: white;
-    border: 2px solid #febd69;
-    border-radius: 20px;
-    padding: 3px;
-    width: 100%;
-    max-width: 250px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .search-container input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 6px 8px;
-    font-size: 14px;
-    border-radius: 20px 0 0 20px;
-  }
-  
-  .search-container button {
-    background: #febd69;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 0 20px 20px 0;
-    cursor: pointer;
-  }
-  
-  .search-container i {
-    color: white;
-    font-size: 14px;
-  }
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #febd69;
+  border-radius: 15px;
+  padding: 0;
+  width: 180px;
+  height: 28px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden; 
+  box-sizing: border-box; 
+}
+
+.search-container input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 8px;
+  font-size: 12px;
+  height: 100%; 
+  min-width: 0; 
+  box-sizing: border-box;
+}
+
+.search-container button {
+  background: #febd69;
+  border: none;
+  padding: 0 8px;
+  border-radius: 0 15px 15px 0;
+  cursor: pointer;
+  height: 100%;
+  flex-shrink: 0; 
+  box-sizing: border-box;
+}
+
+.search-container i {
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
     
 /***/    
   .main-content {
@@ -151,7 +161,7 @@
     background-color: var(--strong-white);
     max-height: auto;
   }
-  /* Estilos específicos de login */
+  
   .auth-circle {
     width: 80px;
     height: 80px;
@@ -184,7 +194,7 @@
     border-left: 4px solid var(--primary-color);
   }
   
-  /* Media queries para responsividad */
+  /**RESPONSIVIDAD*/
   @media (max-width: 768px) {
     .auth-container {
       padding: 1.5rem;
@@ -205,3 +215,173 @@
       grid-template-columns: 1fr;
     }
   }
+
+
+  /**AGREGAR PRODUCTO*/
+  .form-container {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    top: -20px; 
+    border: 5px solid #00000084;
+    border-radius: 5px;
+}
+
+h2 {
+    color: #0f0f10;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Grupos de formulario */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: #576574;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Estilos para carga de imagen */
+.image-upload {
+    position: relative;
+    text-align: center;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.image-upload:hover {
+    border-color: #3498db;
+    background: #f8f9ff;
+}
+
+.image-upload input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.image-upload i {
+    font-size: 2rem;
+    color: #3498db;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.image-upload p {
+    color: #7f8c8d;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+
+.btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+/*! Agregar Prodcto */
+.form-container {
+
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  width: 100%;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  box-sizing: border-box; 
+  font-size: 0.9rem;
+}
+
+.image-upload {
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.image-upload p {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.btn {
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
