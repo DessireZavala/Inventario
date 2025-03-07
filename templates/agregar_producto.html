@@ -5,41 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Producto</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/static/css/formprod.css">
-
-    
+    <link rel="stylesheet" href="/static/css/formprod.css"> <!-- Estilo del formulario -->
 </head>
 <body>
 
-<div class="form-container">
-    <h2>Agregar Producto</h2>
-    <form method="POST" action="/agregar_producto" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="nombre">Nombre del Producto:</label>
-            <input type="text" id="nombre" name="nombre" required>
+    <!-- Sidebar -->
+    <div class="sidebar-left">
+        <img src="logo.png" alt="Logo">
+        <!-- Ícono de inventario con refresco de página -->
+        <i class="fas fa-box" onclick="location.href='/'"></i>
+        <!-- Ícono para agregar producto -->
+        <i class="fas fa-plus" onclick="location.href='/agregar_producto'; window.location.reload();"></i>
+        <!-- Ícono para surtir producto (aún no implementado) -->
+        <i class="fas fa-truck" onclick="location.href='/surtir_producto'"></i>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <div class="form-container">
+            <h2>Agregar Producto</h2>
+            <form method="POST" action="/agregar_producto" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Producto:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Categoría:</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="quimicos">Químicos</option>
+                        <option value="mantenimiento">Mantenimiento</option>
+                        <option value="equipo">Equipo</option>
+                    </select>
+                </div>
+                <div class="form-group image-upload">
+                    <label for="imagen">Imagen del Producto:</label>
+                    <input type="file" id="imagen" name="imagen" accept="image/*" required onchange="displayFileName()">
+                    <i class="fas fa-plus"></i> <!-- Ícono de más para indicar que se debe subir una imagen -->
+                    <p>Haz clic aquí para subir la imagen</p>
+                    <!-- Aquí se mostrará el nombre del archivo seleccionado -->
+                    <p id="file-name"></p>
+                </div>
+                <button type="submit" class="btn">Agregar Producto</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" required>
-        </div>
-        <div class="form-group">
-            <label for="categoria">Categoría:</label>
-            <select id="categoria" name="categoria" required>
-                <option value="herramientas">Herramientas</option>
-                <option value="pintura">Pintura</option>
-                <option value="repuestos">Repuestos</option>
-                <!-- Puedes añadir más categorías si lo deseas -->
-            </select>
-        </div>
-        <div class="form-group image-upload">
-            <label for="imagen">Imagen del Producto:</label>
-            <input type="file" id="imagen" name="imagen" accept="image/*" required>
-            <i class="fas fa-plus"></i> <!-- Ícono de más para indicar que se debe subir una imagen -->
-            <p>Haz clic aquí para subir la imagen</p>
-        </div>
-        <button type="submit" class="btn">Agregar Producto</button>
-    </form>
-</div>
+    </div>
+
+    <script>
+        // Función para mostrar el nombre del archivo
+        function displayFileName() {
+            var fileInput = document.getElementById('imagen');
+            var fileName = fileInput.files[0].name;  // Obtener el nombre del archivo
+            var fileDisplay = document.getElementById('file-name');  // Elemento donde mostrar el nombre del archivo
+            fileDisplay.textContent = fileName;  // Mostrar el nombre del archivo
+        }
+    </script>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="flash-messages">
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div> <!-- Estilo con clase -->
+        {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
+
+
+<script>
+    // Esperar a que el DOM esté completamente cargado
+    document.addEventListener('DOMContentLoaded', function() {
+        const flashMessages = document.querySelector('.flash-messages');
+        if (flashMessages) {
+            flashMessages.style.display = 'block'; // Mostrar el mensaje flash
+
+            // Esperar 3 segundos (3000 ms) y luego ocultar el mensaje
+            setTimeout(function() {
+                flashMessages.style.display = 'none'; // Ocultar el mensaje después de 3 segundos
+            }, 3000);
+        }
+    });
+</script>
 
 </body>
 </html>

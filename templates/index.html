@@ -6,15 +6,17 @@
     <title>Inventario - Sistema de Limpieza</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
-   
 </head>
-<body class=>
+<body>
 
     <!-- Barra lateral izquierda -->
     <div class="sidebar-left">
         <img src="logo.png" alt="Logo">
-        <i class="fas fa-box" onclick="location.href='index.html'"></i>
-        <i class="fas fa-plus" onclick="location.href='agregar_producto.html'"></i>
+        <!-- Ícono de inventario con refresco de página -->
+        <i class="fas fa-box" onclick="location.href='/index'; window.location.reload();"></i>
+        <!-- Ícono para agregar producto -->
+        <i class="fas fa-plus" onclick="location.href='/agregar_producto'"></i>
+        <!-- Ícono para surtir producto (aún no implementado) -->
         <i class="fas fa-truck" onclick="location.href='/surtir_producto'"></i>
     </div>
 
@@ -23,34 +25,42 @@
         <!-- Header -->
         <div class="header">
             <div class="categories">
-                <a href="#">HERRAMIENTAS</a>
-                <a href="#">PINTURA</a>
-                <a href="#">REPUESTOS</a>
+                <a href="{{ url_for('index') }}">TODOS</a>
+                <a href="{{ url_for('index', categoria='quimicos') }}">QUÍMICOS</a>
+                <a href="{{ url_for('index', categoria='mantenimiento') }}">MANTENIMIENTO</a>
+                <a href="{{ url_for('index', categoria='equipo') }}">EQUIPO</a>
             </div>
+
+            {% if categoria %}
+                <p><strong>Filtrando por categoría:</strong> {{ categoria|capitalize }}</p>
+            {% endif %}
+
             <div class="search-container">
                 <input type="text" placeholder="Buscar en el inventario...">
                 <button><i class="fas fa-search"></i></button>
             </div>
-            
-            
         </div>
 
         <!-- Productos en cuadrícula -->
         <div class="product-grid">
             {% for producto in productos %}
                 <div class="product-card">
-                    <img src="{{ url_for('static', filename='images/' + producto.imagen_url) }}" alt="{{ producto.nombre }}">
+                    <img src="{{ url_for('static', filename='uploads/' + producto.imagen_url) }}" alt="{{ producto.nombre }}">
                     <div class="product-name">{{ producto.nombre }}</div>
                     <div class="quantity">
-                        <button class="btn">-</button>
-                        {{ producto.cantidad }}
-                        <button class="btn">+</button>
+                        <form method="POST" action="{{ url_for('update_quantity') }}">
+                            <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                            <button type="submit" class="btn" name="action" value="decrementar">-</button>
+                            {{ producto.cantidad }}
+                            <button type="submit" class="btn" name="action" value="incrementar">+</button>
+                        </form>
                     </div>
                 </div>
             {% else %}
-                <div>No hay productos en inventario</div>
+                <div>No hay productos disponibles en esta categoría.</div>
             {% endfor %}
         </div>
+
     </div>
 
     <!-- Barra lateral derecha (productos en 0) -->
@@ -59,6 +69,10 @@
         {% for producto in productos_out_of_stock %}
             <div class="product-out-of-stock">
                 {{ producto.nombre }}
+                <form method="POST" action="{{ url_for('update_quantity') }}">
+                    <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                    <button type="submit" class="btn" name="action" value="incrementar">Agregar al inventario</button>
+                </form>
             </div>
         {% else %}
             <div>No hay productos agotados</div>
