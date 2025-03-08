@@ -80,14 +80,14 @@
             <div>No hay productos agotados</div>
         {% endfor %}
     </div>
-<!--............:::::::::::::::btn-Deslog:::::::::::::::::................-->
+<!--............:::::::::::::::btn-Deslog:::::::::::::::::................
 {% if current_user.is_authenticated %}
     <p>Bienvenido, {{ current_user.nombre }}!</p>
     <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
 {% else %}
     <a href="{{ url_for('login') }}" class="btn btn-primary">Iniciar sesión</a>
 {% endif %}
- 
+ -->
 <script>
     window.addEventListener('beforeunload', function() {
         fetch('/logout', {
