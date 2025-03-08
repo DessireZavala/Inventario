@@ -195,3 +195,120 @@ h3 {
   background-color: #dc3545; /* Rojo */
 }
 
+/*login*/
+.text-center{
+  margin-bottom: 33px;
+}
+.login-box {
+  background: #FFFFFF;
+  width: 100%; /* Cambia el ancho a 100% para que se ajuste al tamaño de la pantalla */
+  max-width: 400px; /* Mantén un máximo de 400px para pantallas más grandes */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.logo .circle {
+  width: 100px;
+  height: 100px;
+  background: #ccc;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+/* Nuevo diseño para el login */
+.auth-container {
+  background: #FFFFFF;
+  width: 100%; /* Ajusta el tamaño al 100% */
+  max-width: 700px; /* Máximo de 700px en pantallas grandes */
+  height: 100%; /* Ajusta el tamaño al 100% */
+  max-height: 550px; /* Máximo de 700px en pantallas grandes */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: absolute;
+  top: 50%;  /* Coloca el centro de la caja a la mitad de la altura */
+  left: 50%; /* Coloca el centro de la caja a la mitad del ancho */
+  transform: translate(-50%, -50%); /* Desplaza la caja hacia atrás para centrarla completamente */
+}
+
+.auth-logo .auth-circle {
+  width: 100px;
+  height: 100px;
+  background: #ccc;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+
+.auth-form-group {
+  margin-bottom: 33px;
+  text-align: center;
+  justify-content: center; /* Centra los elementos en el contenedor */
+}
+
+.auth-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 20px;  /* Aumenta el tamaño de la fuente */
+}
+
+.auth-form-group input {
+  margin: 0 auto; /* Centra el input */
+  width: 70%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #FFE5BC;
+}
+
+.auth-btn {
+  font-size: 18px;  /* Aumenta el tamaño de la fuente */
+  background-color: #F5C77E;
+  color: white;
+  padding: 10px;
+  width: 60%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.auth-btn:hover {
+  background-color: #f4ba5d;
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+  .auth-container {
+      width: 90%; /* Hace el contenedor más pequeño en pantallas móviles */
+      max-width: 500px; /* Limita el tamaño máximo en pantallas móviles */
+  }
+
+  .auth-form-group input {
+      width: 90%; /* Los inputs ocupan un 90% en pantallas pequeñas */
+  }
+
+  .auth-btn {
+      width: 80%; /* Botón más grande en pantallas pequeñas */
+  }
+
+  .auth-logo .auth-circle {
+      width: 80px; /* Reduce el tamaño del círculo en pantallas pequeñas */
+      height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+      width: 90%; /* Reducción aún mayor en pantallas pequeñas */
+  }
+
+  .auth-form-group input {
+      width: 90%; /* Asegura que el input ocupe todo el ancho disponible */
+  }
+
+  .auth-btn {
+      width: 100%; /* Botón que ocupa todo el ancho */
+  }
+}
