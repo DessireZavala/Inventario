@@ -312,3 +312,29 @@ h3 {
       width: 100%; /* Botón que ocupa todo el ancho */
   }
 }
+
+/*!Estilos de surtir*/
+.card-header {
+  background-color: #2c3e50;
+  color: white;
+}
+.sucursal-card {
+  transition: all 0.3s ease;
+}
+.sucursal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+.urgente {
+  background-color: #ff961e;
+  color: white;
+}
+.en-tiempo {
+  background-color: #1dd1a1;
+  color: white;
+}
+/*?FIN DE LOS ESTILOS DE SURTIR */

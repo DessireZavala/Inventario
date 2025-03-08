@@ -13,14 +13,14 @@
             border-radius: 5px;
             color: white;
             font-size: 16px;
-            position: fixed; /* Posiciona el mensaje en la parte superior */
-            top: 20px;  /* Mueve el mensaje hacia abajo desde el top */
-            left: 50%; /* Centra el mensaje horizontalmente */
-            transform: translateX(-50%); /* Ajusta para centrarlo */
-            z-index: 9999; /* Asegura que se muestre sobre otros elementos */
-            display: none; /* Inicialmente oculto */
-            opacity: 0; /* Hace que el mensaje sea invisible al principio */
-            transition: opacity 0.5s ease-in-out; /* Transición para que se desvanezca */
+            position: fixed; 
+            top: 20px;  
+            left: 50%; 
+            transform: translateX(-50%); 
+            z-index: 9999; 
+            display: none; 
+            opacity: 0; 
+            transition: opacity 0.5s ease-in-out; 
         }
 
         .alert-danger {
@@ -58,14 +58,14 @@
             </div>
         {% endif %}
     {% endwith %}
-     <!-- JavaScript para hacer desaparecer el mensaje después de 3 segundos -->
+     
      <script>
         window.onload = function() {
             var flashMessage = document.getElementById("flashMessage");
             if (flashMessage) {
-                flashMessage.classList.add("alert-show"); // Muestra la alerta
+                flashMessage.classList.add("alert-show"); 
                 setTimeout(function() {
-                    flashMessage.classList.remove("alert-show"); // La oculta después de 3 segundos
+                    flashMessage.classList.remove("alert-show"); 
                 }, 3000); // 3 segundos
             }
         };
