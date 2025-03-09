@@ -30,14 +30,14 @@
   color: white !important;
   }
   
-/* Reset de márgenes y padding */
+/*! Reset de márgenes y padding */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilo para el body */
+/*! Estilo para el body */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -48,16 +48,16 @@ body {
  
 }
 
-/* Barra lateral izquierda */
+/*! Barra lateral izquierda */
 .sidebar-left {
   width: 200px;
-  background-color: #2980b9; /* Azul como color principal */
+  background-color: #2980b9;
   color: #fff;
   padding: 20px;
   text-align: center;
   display: flex;
-  flex-direction: column; /* Íconos en vertical */
-  gap: 20px; /* Espacio entre íconos */
+  flex-direction: column; 
+  gap: 20px; 
 }
 
 .sidebar-left img {
@@ -72,10 +72,10 @@ body {
 }
 
 .sidebar-left i:hover {
-  color: #3498db; /* Cambia el color al pasar el ratón sobre los íconos */
+  color: #3498db; 
 }
 
-/* Estilo para el contenido principal */
+/*! Estilo para el contenido principal */
 .main-content {
   flex-grow: 1;
   padding: 20px;
@@ -192,19 +192,19 @@ h3 {
   margin-bottom: 20px;
 }
 
-/* Estilo para los mensajes flash */
+/*! Estilo para los mensajes flash */
 .flash-messages {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centrado exacto en la pantalla */
+  transform: translate(-50%, -50%); 
   z-index: 9999;
-  display: none; /* Inicialmente oculto */
-  width: 80%; /* Ancho del contenedor */
-  max-width: 400px; /* Máximo tamaño */
+  display: none; 
+  width: 80%; 
+  max-width: 400px; 
 }
 
-/* Estilos generales para las alertas */
+/*! Estilos generales para las alertas */
 .alert {
   padding: 15px;
   border-radius: 8px;
@@ -214,29 +214,29 @@ h3 {
   margin: 0;
 }
 
-/* Estilo para el mensaje de información */
+/*! Estilo para el mensaje de información */
 .alert-info {
-  background-color: #17a2b8; /* Azul */
+  background-color: #17a2b8; 
 }
 
-/* Estilo para el mensaje de éxito */
+/*! Estilo para el mensaje de éxito */
 .alert-success {
-  background-color: #28a745; /* Verde */
+  background-color: #28a745; 
 }
 
-/* Estilo para el mensaje de error */
+/*! Estilo para el mensaje de error */
 .alert-danger {
-  background-color: #dc3545; /* Rojo */
+  background-color: #dc3545; 
 }
 
-/*login*/
+/*! login*/
 .text-center{
   margin-bottom: 33px;
 }
 .login-box {
   background: #FFFFFF;
-  width: 100%; /* Cambia el ancho a 100% para que se ajuste al tamaño de la pantalla */
-  max-width: 400px; /* Mantén un máximo de 400px para pantallas más grandes */
+  width: 100%;
+  max-width: 400px; 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -250,21 +250,21 @@ h3 {
   border-radius: 50%;
   margin: 0 auto 20px;
 }
-/* Nuevo diseño para el login */
+/*! Nuevo diseño para el login */
 .auth-container {
   background: #FFFFFF;
-  width: 100%; /* Ajusta el tamaño al 100% */
-  max-width: 700px; /* Máximo de 700px en pantallas grandes */
-  height: 100%; /* Ajusta el tamaño al 100% */
-  max-height: 550px; /* Máximo de 700px en pantallas grandes */
+  width: 100%; 
+  max-width: 700px; 
+  height: 100%; 
+  max-height: 550px; 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: absolute;
-  top: 50%;  /* Coloca el centro de la caja a la mitad de la altura */
-  left: 50%; /* Coloca el centro de la caja a la mitad del ancho */
-  transform: translate(-50%, -50%); /* Desplaza la caja hacia atrás para centrarla completamente */
+  top: 50%;  
+  left: 50%;
+  transform: translate(-50%, -50%); 
 }
 
 .auth-logo .auth-circle {
@@ -278,18 +278,18 @@ h3 {
 .auth-form-group {
   margin-bottom: 33px;
   text-align: center;
-  justify-content: center; /* Centra los elementos en el contenedor */
+  justify-content: center; 
 }
 
 .auth-form-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  font-size: 20px;  /* Aumenta el tamaño de la fuente */
+  font-size: 20px;  
 }
 
 .auth-form-group input {
-  margin: 0 auto; /* Centra el input */
+  margin: 0 auto; 
   width: 70%;
   padding: 10px;
   border-radius: 4px;
@@ -298,7 +298,7 @@ h3 {
 }
 
 .auth-btn {
-  font-size: 18px;  /* Aumenta el tamaño de la fuente */
+  font-size: 18px; 
   background-color: #F5C77E;
   color: white;
   padding: 10px;
@@ -312,38 +312,38 @@ h3 {
   background-color: #f4ba5d;
 }
 
-/* Media Queries para pantallas pequeñas */
+/*! Media Queries para pantallas pequeñas */
 @media (max-width: 768px) {
   .auth-container {
-      width: 90%; /* Hace el contenedor más pequeño en pantallas móviles */
-      max-width: 500px; /* Limita el tamaño máximo en pantallas móviles */
+      width: 90%; 
+      max-width: 500px; 
   }
 
   .auth-form-group input {
-      width: 90%; /* Los inputs ocupan un 90% en pantallas pequeñas */
+      width: 90%; 
   }
 
   .auth-btn {
-      width: 80%; /* Botón más grande en pantallas pequeñas */
+      width: 80%;
   }
 
   .auth-logo .auth-circle {
-      width: 80px; /* Reduce el tamaño del círculo en pantallas pequeñas */
+      width: 80px;
       height: 80px;
   }
 }
 
 @media (max-width: 480px) {
   .auth-container {
-      width: 90%; /* Reducción aún mayor en pantallas pequeñas */
+      width: 90%; 
   }
 
   .auth-form-group input {
-      width: 90%; /* Asegura que el input ocupe todo el ancho disponible */
+      width: 90%; 
   }
 
   .auth-btn {
-      width: 100%; /* Botón que ocupa todo el ancho */
+      width: 100%;
   }
 }
 
@@ -371,12 +371,6 @@ h3 {
   background-color: #1dd1a1;
   color: white;
 }
-
-
-
-
-
-
 
 .card {
   background-color: var(--card-bg);
