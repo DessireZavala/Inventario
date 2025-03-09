@@ -88,17 +88,8 @@
     <a href="{{ url_for('login') }}" class="btn btn-primary">Iniciar sesión</a>
 {% endif %}
  -->
-<script>
-    window.addEventListener('beforeunload', function() {
-        fetch('/logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ logout: true })
-        });
-    });
-</script>
+ <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+
 
 </body>
 </html>

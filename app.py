@@ -87,14 +87,9 @@ def login():
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
-    session.pop('user_id', None)  # Elimina el user_id manualmente si es necesario
     session.clear()  # Limpia todos los datos en la sesión
     logout_user()  # Cerrar sesión
-
-    if request.method == 'POST':
-        return '', 200  # Respuesta vacía y código 200 para indicar que la sesión se cerró correctamente
-
-    return redirect(url_for('login'))  # Si no es una solicitud POST, redirige a login
+    return '', 204  # Respuesta vacía y código 200 para indicar que la sesión se cerró correctamente
 
 
 ############## QUE ES ESTO???? PORqUE es QUE ES NECESARIO O_o
