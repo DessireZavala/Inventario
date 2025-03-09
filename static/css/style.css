@@ -1,3 +1,35 @@
+:root{
+--bg-color: #ffffff;
+--text-color: #212529;
+--card-bg: #f8f9fa;
+--border-color: #dee2e6;
+--header-bg: #2c3e50;
+--urgente-color:  #ff961e;
+--tiempo-color: #1dd1a1;
+}
+
+[data-theme="dark"] {
+--bg-color: #1a1a1a;
+--text-color: #f8f9fa;
+--card-bg: #2d2d2d;
+--border-color: #495057;
+--header-bg: #1a252f;
+--urgente-color: #ff6b6b;
+--tiempo-color: #00b894;
+}
+
+.table {
+  --bs-table-bg: var(--card-bg);
+  --bs-table-color: var(--text-color);
+  --bs-table-border-color: var(--border-color);
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.1);
+}
+
+
+[data-theme="dark"] .table tbody td {
+  color: white !important;
+  }
+  
 /* Reset de márgenes y padding */
 * {
   margin: 0;
@@ -7,10 +39,13 @@
 
 /* Estilo para el body */
 body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: space-between;
-  background-color: #f4f4f4;
+ 
 }
 
 /* Barra lateral izquierda */
@@ -76,11 +111,10 @@ body {
   background-color: #3498db;
 }
 
-/* Estilo para la cuadrícula de productos */
+/*! Estilo para la cuadrícula de productos */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsivo, con columnas automáticas */
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
   margin-top: 20px;
 }
 
@@ -96,9 +130,9 @@ body {
 }
 
 .product-card img {
-  width: 100%;  /* Asegura que las imágenes ocupen todo el ancho disponible */
-  height: 200px;  /* Fija una altura estándar para las imágenes */
-  object-fit: cover;  /* Asegura que la imagen mantenga proporciones y no se distorsione */
+  width: 100%; 
+  height: 200px;  
+  object-fit: cover;  
   margin-bottom: 15px;
   border-radius: 8px;
 }
@@ -129,7 +163,7 @@ body {
   background-color: #3498db;
 }
 
-/* Barra lateral derecha (productos sin stock) */
+/*! Barra lateral derecha (productos sin stock) */
 .sidebar-right {
   width: 250px;
   background-color: #ecf0f1;
@@ -337,4 +371,75 @@ h3 {
   background-color: #1dd1a1;
   color: white;
 }
+
+
+
+
+
+
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.card-header {
+  background-color: var(--header-bg) !important;
+  color: white;
+  border-bottom: 1px solid var(--border-color);
+}
+
+
+.sucursal-card {
+  transition: all 0.3s ease;
+}
+
+.sucursal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.urgente {
+  background-color: var(--urgente-color);
+  color: white;
+}
+
+.en-tiempo {
+  background-color: var(--tiempo-color);
+  color: white;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+th{
+  background-color: var(--header-bg);
+  color: var(--text-color);
+}
+
+
 /*?FIN DE LOS ESTILOS DE SURTIR */

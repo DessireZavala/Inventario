@@ -217,7 +217,7 @@
     </div>
 
     <script>
-        // Datos iniciales
+       
         let sucursales = {
             centro: { ultimaFecha: new Date('2024-03-15'), cantidad: 450 },
             norte: { ultimaFecha: new Date('2024-03-12'), cantidad: 380 },
@@ -225,14 +225,14 @@
         };
 
         function actualizarDatos() {
-            // Actualizar valores
+           
             Object.keys(sucursales).forEach(sucursal => {
                 const variacion = (Math.random() - 0.3) * 20;
                 sucursales[sucursal].cantidad = Math.floor(sucursales[sucursal].cantidad * (1 + variacion/100));
                 sucursales[sucursal].ultimaFecha = new Date();
             });
 
-            // Actualizar interfaz
+          
             let total = 0;
             let proximasFechas = [];
             let urgentes = 0;
@@ -242,22 +242,21 @@
                 const proximaFecha = new Date(datos.ultimaFecha);
                 proximaFecha.setDate(proximaFecha.getDate() + 7);
                 
-                // Actualizar valores
+                
                 sucursal.querySelector('.cantidad').textContent = datos.cantidad;
                 sucursal.querySelector('.proximo').textContent = proximaFecha.toLocaleDateString();
                 total += datos.cantidad;
                 proximasFechas.push(proximaFecha);
 
-                // Calcular días restantes
+               
                 const diasRestantes = Math.ceil((proximaFecha - new Date()) / (1000 * 60 * 60 * 24));
                 if(diasRestantes <= 2) urgentes++;
                 
-                // Actualizar progreso
+                
                 const progreso = 100 - ((diasRestantes / 7) * 100);
                 sucursal.querySelector('.progreso').style.width = `${Math.min(progreso, 100)}%`;
             });
 
-            // Actualizar resumen
             document.getElementById('totalUnidades').textContent = `${total} unidades`;
             document.getElementById('proximoGlobal').textContent = proximasFechas.sort((a,b) => a - b)[0].toLocaleDateString();
             document.getElementById('sucursalesUrgentes').textContent = urgentes;
