@@ -42,13 +42,13 @@
    </style>
 </head>
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    
     <div class="container">
         <div class="auth-container">
             <div class="auth-logo">
                 <div class="auth-circle"></div>
             </div>
-
+         <div>
             <!-- Mostrar mensajes de error si existen -->
             {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -59,7 +59,7 @@
             </div>
         {% endif %}
     {% endwith %}
-     
+</div>
      <script>
         window.onload = function() {
             var flashMessage = document.getElementById("flashMessage");
@@ -67,7 +67,7 @@
                 flashMessage.classList.add("alert-show"); 
                 setTimeout(function() {
                     flashMessage.classList.remove("alert-show"); 
-                }, 3000); // 3 segundos
+                }, 2000); 
             }
         };
     </script>

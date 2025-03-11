@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 # Crear la aplicación Flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecreto'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Inventario/instance/inventario.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/diego/Desktop/Inventario/instance/inventario.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
@@ -21,7 +21,7 @@ app.config['SESSION_TYPE'] = 'filesystem'  # O puedes usar otros tipos si prefie
 # Dess      'sqlite:///D:/Inventario/instance/inventario.db'
 # Vic       'sqlite:///C:/Users/victor jireh/Desktop/Inventario/instance/inventario.db'  # Ruta de la base de datos
 # Hannya    
-# Hurtado   
+# Hurtado   'sqlite:///C:/Users/diego/Desktop/Inventario/instance/inventario.db'
 # Yovis
 
 # Inicializar las extensiones
@@ -30,7 +30,7 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-login_manager.login_message_category = 'info'  # Mensaje que se muestra si no hay sesión
+login_manager.login_message_category = 'info'  
 
 # Inicializar Flask-Migrate
 migrate = Migrate(app, db)
