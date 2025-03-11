@@ -63,31 +63,7 @@
             fileDisplay.textContent = fileName;  // Mostrar el nombre del archivo
         }
     </script>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="flash-messages">
-        {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div> <!-- Estilo con clase -->
-        {% endfor %}
-    </div>
-{% endif %}
-{% endwith %}
 
-
-<script>
-    // Esperar a que el DOM esté completamente cargado
-    document.addEventListener('DOMContentLoaded', function() {
-        const flashMessages = document.querySelector('.flash-messages');
-        if (flashMessages) {
-            flashMessages.style.display = 'block'; // Mostrar el mensaje flash
-
-            // Esperar 3 segundos (3000 ms) y luego ocultar el mensaje
-            setTimeout(function() {
-                flashMessages.style.display = 'none'; // Ocultar el mensaje después de 3 segundos
-            }, 3000);
-        }
-    });
-</script>
 <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
 
 </body>
