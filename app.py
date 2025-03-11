@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 # Crear la aplicación Flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecreto'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/diego/Desktop/Inventario/instance/inventario.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Inventario/instance/inventario.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}

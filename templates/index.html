@@ -16,7 +16,7 @@
         <!-- Ícono para agregar producto -->
         <i class="fas fa-plus" onclick="location.href='/agregar_producto'"></i>
         <!-- Ícono para surtir producto (aún no implementado) -->
-        <i class="fas fa-truck" onclick="location.href='7surtir_producto'"></i>
+        <i class="fas fa-truck" onclick="location.href='/surtir_producto'"></i>
     </div>
 
     <!-- Contenido principal -->
@@ -54,12 +54,42 @@
                             <button type="submit" class="btn" name="action" value="incrementar">+</button>
                         </form>
                     </div>
+                    <!-- Botón de editar producto -->
+                    <div class="edit-btn">
+                        <button class="edit-product" onclick="openEditModal"{{ producto.id }}><i class="fas fa-pencil-alt"></i></button>
+                    </div>
                 </div>
             {% else %}
                 <div>No hay productos disponibles en esta categoría.</div>
             {% endfor %}
         </div>
 
+    </div>
+
+    <!-- Modal de edición de producto -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2>Editar Producto</h2>
+            <form id="edit-form" method="POST">
+                <input type="hidden" id="edit-product-id" name="producto_id">
+                <label for="edit-name">Nombre:</label>
+                <input type="text" id="edit-name" name="nombre" required><br><br>
+                
+                <label for="edit-quantity">Cantidad:</label>
+                <input type="number" id="edit-quantity" name="cantidad" required><br><br>
+                
+                <label for="edit-category">Categoría:</label>
+                <input type="text" id="edit-category" name="categoria" required><br><br>
+                
+                <label for="edit-image">Imagen:</label>
+                <input type="file" id="edit-image" name="imagen"><br><br>
+                
+                <button type="submit" class="btn">Guardar cambios</button>
+                <button type="button" class="btn" onclick="deleteProduct()">Eliminar producto</button>
+                <button type="button" class="btn" onclick="closeEditModal()">Cerrar</button>
+            </form>
+        </div>
     </div>
 
     <!-- Barra lateral derecha (productos sin stock) -->
@@ -80,31 +110,47 @@
         {% endfor %}
     </div>
 
-    {% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="flash-messages">
-        {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div> <!-- Estilo con clase -->
-        {% endfor %}
-    </div>
-{% endif %}
-{% endwith %}
-
-
-<script>
-    // Esperar a que el DOM esté completamente cargado
-    document.addEventListener('DOMContentLoaded', function() {
-        const flashMessages = document.querySelector('.flash-messages');
-        if (flashMessages) {
-            flashMessages.style.display = 'block'; // Mostrar el mensaje flash
-
-            // Esperar 3 segundos (3000 ms) y luego ocultar el mensaje
-            setTimeout(function() {
-                flashMessages.style.display = 'none'; // Ocultar el mensaje después de 3 segundos
-            }, 3000);
+    <script>
+        // Funciones para abrir y cerrar el modal de edición
+        function openEditModal(productId) {
+            const modal = document.getElementById('edit-modal');
+            const form = document.getElementById('edit-form');
+            // Fetch product data from the backend and populate the form
+            fetch(`/producto/${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('edit-product-id').value = data.id;
+                    document.getElementById('edit-name').value = data.nombre;
+                    document.getElementById('edit-quantity').value = data.cantidad;
+                    document.getElementById('edit-category').value = data.categoria;
+                    modal.style.display = 'block';
+                });
         }
-    });
-</script>
+
+        function closeEditModal() {
+            const modal = document.getElementById('edit-modal');
+            modal.style.display = 'none';
+        }
+
+        function deleteProduct() {
+            const productId = document.getElementById('edit-product-id').value;
+            const confirmation = confirm("¿Estás seguro que quieres eliminar este producto?");
+            if (confirmation) {
+                window.location.href = `/eliminar_producto/${productId}`;
+            }
+        }
+    </script>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
     <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
 
 </body>
