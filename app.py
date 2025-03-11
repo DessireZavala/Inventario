@@ -1,28 +1,28 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user,current_user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
 from werkzeug.utils import secure_filename
 from flask_migrate import Migrate
 
-
 # Crear la aplicación Flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecreto'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/victor jireh/Desktop/Inventario/instance/inventario.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Inventario/instance/inventario.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['SESSION_PERMANENT'] = False  # Para que la sesión no dure más allá de la navegación actual
 app.config['SESSION_TYPE'] = 'filesystem'  # O puedes usar otros tipos si prefieres
 
+
 #RUTAS RUTAS RUTAS RUTAS RUTAS
 # Dess      'sqlite:///D:/Inventario/instance/inventario.db'
 # Vic       'sqlite:///C:/Users/victor jireh/Desktop/Inventario/instance/inventario.db'  # Ruta de la base de datos
 # Hannya    
-# Hurtado   
-# Yovis     
+# Hurtado   
+# Yovis
 
 # Inicializar las extensiones
 db = SQLAlchemy(app)
@@ -35,7 +35,6 @@ login_manager.login_message_category = 'info'  # Mensaje que se muestra si no ha
 # Inicializar Flask-Migrate
 migrate = Migrate(app, db)
 
-
 @app.after_request
 def no_cache(response):
     response.headers['Cache-Control'] = 'no-store'
@@ -47,7 +46,6 @@ def no_cache(response):
 @login_manager.user_loader
 def load_user(user_id):
     return Usuario.query.get(int(user_id))  # Esto carga al usuario desde la base de datos por su ID
-
 
 # Modelo de Usuario
 class Usuario(UserMixin, db.Model):
@@ -91,28 +89,35 @@ def logout():
     logout_user()  # Cerrar sesión
     return '', 204  # Respuesta vacía y código 200 para indicar que la sesión se cerró correctamente
 
-
-############## QUE ES ESTO???? PORqUE es QUE ES NECESARIO O_o
 @app.route('/update_quantity', methods=['POST'])
 @login_required
 def update_quantity():
     producto_id = request.form.get('producto_id')
-    nueva_cantidad = request.form.get('cantidad')
+    action = request.form.get('action')
+    cantidad = request.form.get('cantidad')
 
-    if producto_id and nueva_cantidad:
-        producto = Producto.query.get(producto_id)
-        if producto:
-            producto.cantidad = int(nueva_cantidad)
+    producto = Producto.query.get(producto_id)
+    if producto:
+        if action == 'incrementar':
+            if cantidad:
+                producto.cantidad += int(cantidad)
+            else:
+                producto.cantidad += 1
+        elif action == 'decrementar' and producto.cantidad > 0:
+            producto.cantidad -= 1
+
+        if producto.cantidad == 0:
+            # Mover el producto a la lista de sin stock
+            db.session.commit()
+            flash(f'{producto.nombre} ahora está fuera de stock', 'info')
+        elif producto.cantidad > 0:
             db.session.commit()
             flash('Cantidad actualizada exitosamente', 'success')
         else:
-            flash('Producto no encontrado', 'danger')
-    else:
-        flash('Por favor ingrese todos los datos', 'danger')
+            db.session.commit()
+            flash(f'{producto.nombre} ha vuelto a estar en stock', 'success')
 
     return redirect(url_for('index'))
-
-
 
 @app.route('/')
 @login_required
@@ -127,7 +132,6 @@ def index():
     productos_out_of_stock = Producto.query.filter_by(cantidad=0).all()
 
     return render_template('index.html', productos=productos, productos_out_of_stock=productos_out_of_stock, categoria=categoria)
-
 
 @app.route('/agregar_producto', methods=['GET', 'POST'])
 @login_required
@@ -155,7 +159,6 @@ def agregar_producto():
             flash('Por favor complete todos los campos', 'danger')
 
     return render_template('agregar_producto.html')
-
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
