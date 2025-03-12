@@ -124,6 +124,7 @@ def login():
 def logout():
     session.clear()  # Limpia todos los datos en la sesión
     logout_user()  # Cerrar sesión
+    return redirect(url_for('login')) 
     return '', 204  # Respuesta vacía y código 200 para indicar que la sesión se cerró correctamente
 
 

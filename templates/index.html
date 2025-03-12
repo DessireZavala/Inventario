@@ -19,8 +19,20 @@
         <!-- Ícono para surtir producto -->
         <i class="fas fa-truck" onclick="location.href='/surtir_producto'"></i>
         <!-- Ícono para logout-->
-        <i class="fas fa-sign-out-alt" onclick="location.href='/logout'"></i>
+        <!-- Ícono para logout con refresco -->
+    <i class="fas fa-sign-out-alt" onclick="logoutAndRefresh()"></i>
 
+    <script>
+        function logoutAndRefresh() {
+            // Redirige al endpoint de logout
+            window.location.href = '/logout';
+            
+            // Espera un momento y luego recarga la página
+            setTimeout(function() {
+                location.reload();
+            }, 100); // Puedes ajustar el tiempo según sea necesario
+        }
+    </script>
     </div>
 
     <!-- Contenido principal -->
