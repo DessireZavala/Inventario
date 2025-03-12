@@ -216,7 +216,7 @@ h3 {
 
 /*! Estilo para el mensaje de información */
 .alert-info {
-  background-color: #17a2b8; 
+  background-color: #17a2b8 /* !important*..esto puedo sobreponerse a boostrap style*/; 
 }
 
 /*! Estilo para el mensaje de éxito */

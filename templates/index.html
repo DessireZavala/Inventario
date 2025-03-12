@@ -5,18 +5,34 @@
     <title>Inventario - Sistema de Limpieza</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
   
-    <!-- Barra lateral izquierda -->
+    <!-- Barra lateral izquierda    originallll-->
     <div class="sidebar-left">
-        <img src="logo.png" alt="Logo">
+        <img src="/static/images/rocasalogo.png" alt="Logo">
         <!-- Ícono de inventario con refresco de página -->
         <i class="fas fa-box" onclick="location.href='/index'; window.location.reload();"></i>
         <!-- Ícono para agregar producto -->
         <i class="fas fa-plus" onclick="location.href='/agregar_producto'"></i>
-        <!-- Ícono para surtir producto (aún no implementado) -->
+        <!-- Ícono para surtir producto -->
         <i class="fas fa-truck" onclick="location.href='/surtir_producto'"></i>
+        <!-- Ícono para logout-->
+        <!-- Ícono para logout con refresco -->
+    <i class="fas fa-sign-out-alt" onclick="logoutAndRefresh()"></i>
+
+    <script>
+        function logoutAndRefresh() {
+            // Redirige al endpoint de logout
+            window.location.href = '/logout';
+            
+            // Espera un momento y luego recarga la página
+            setTimeout(function() {
+                location.reload();
+            }, 100); // Puedes ajustar el tiempo según sea necesario
+        }
+    </script>
     </div>
 
     <!-- Contenido principal -->
@@ -35,9 +51,12 @@
             {% endif %}
 
             <div class="search-container">
-                <input type="text" placeholder="Buscar en el inventario...">
-                <button><i class="fas fa-search"></i></button>
+                <form method="GET" action="{{ url_for('index') }}">
+                    <input type="text" name="query" placeholder="Buscar en el inventario..." value="{{ query or '' }}">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
             </div>
+            
         </div>
 
         <!-- Productos en cuadrícula -->
@@ -50,9 +69,19 @@
                         <form method="POST" action="{{ url_for('update_quantity') }}">
                             <input type="hidden" name="producto_id" value="{{ producto.id }}">
                             <button type="submit" class="btn" name="action" value="decrementar">-</button>
-                            {{ producto.cantidad }}
+                            <!-- Aquí se agrega la clase 'low-stock' si la cantidad es 1 -->
+                            <span class="{{ 'low-stock' if producto.cantidad == 1 else '' }}">
+                                {{ producto.cantidad }}
+                            </span>
                             <button type="submit" class="btn" name="action" value="incrementar">+</button>
                         </form>
+                    </div>
+                    <!-- Botón de editar producto -->
+                    <div class="edit-btn">
+                        <!-- Enlace para editar producto -->
+                        <a href="{{ url_for('editar_producto', producto_id=producto.id) }}">
+                            <i class="fa fa-pencil"></i> Editar
+                        </a>
                     </div>
                 </div>
             {% else %}
@@ -60,6 +89,32 @@
             {% endfor %}
         </div>
 
+    </div>
+
+    <!-- Modal de edición de producto -->
+    <div id="edit-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-content" role="document">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2>Editar Producto</h2>
+            <form id="edit-form" method="POST">
+                <input type="hidden" id="edit-product-id" name="producto_id">
+                <label for="edit-name">Nombre:</label>
+                <input type="text" id="edit-name" name="nombre" required><br><br>
+                
+                <label for="edit-quantity">Cantidad:</label>
+                <input type="number" id="edit-quantity" name="cantidad" required><br><br>
+                
+                <label for="edit-category">Categoría:</label>
+                <input type="text" id="edit-category" name="categoria" required><br><br>
+                
+                <label for="edit-image">Imagen:</label>
+                <input type="file" id="edit-image" name="imagen"><br><br>
+                
+                <button type="submit" class="btn">Guardar cambios</button>
+                <button type="button" class="btn" onclick="deleteProduct()">Eliminar producto</button>
+                <button type="button" class="btn" onclick="closeEditModal()">Cerrar</button>
+            </form>
+        </div>
     </div>
 
     <!-- Barra lateral derecha (productos sin stock) -->
@@ -80,18 +135,48 @@
         {% endfor %}
     </div>
 
+    <script>
+        // Funciones para abrir y cerrar el modal de edición esta es la original uwu
+        function openEditModal(productId) {
+            const modal = document.getElementById('edit-modal');
+            const form = document.getElementById('edit-form');
+            // Fetch product data from the backend and populate the form
+            fetch(`/producto/${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('edit-product-id').value = data.id;
+                    document.getElementById('edit-name').value = data.nombre;
+                    document.getElementById('edit-quantity').value = data.cantidad;
+                    document.getElementById('edit-category').value = data.categoria;
+                    modal.style.display = 'block';
+                });
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('edit-modal');
+            modal.style.display = 'none';
+        }
+
+        function deleteProduct() {
+            const productId = document.getElementById('edit-product-id').value;
+            const confirmation = confirm("¿Estás seguro que quieres eliminar este producto?");
+            if (confirmation) {
+                window.location.href = `/eliminar_producto/${productId}`;
+            }
+        }
+    </script>
+
+
     {% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="flash-messages">
-        {% for message in messages %}
-            <div class="alert alert-info">{{ message }}</div> <!-- Estilo con clase -->
-        {% endfor %}
-    </div>
-{% endif %}
-{% endwith %}
-
-
-<script>
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <script>
     // Esperar a que el DOM esté completamente cargado
     document.addEventListener('DOMContentLoaded', function() {
         const flashMessages = document.querySelector('.flash-messages');
@@ -105,7 +190,12 @@
         }
     });
 </script>
+
+
     <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
