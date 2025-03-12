@@ -1,3 +1,4 @@
+from datetime import timedelta
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -8,6 +9,8 @@ from flask_migrate import Migrate
 
 # Crear la aplicación Flask
 app = Flask(__name__)
+
+# Configuración de la clave secreta y la sesión originleeeeeee
 app.config['SECRET_KEY'] = 'supersecreto'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Inventario/instance/inventario.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -15,32 +18,29 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['SESSION_PERMANENT'] = False  # Para que la sesión no dure más allá de la navegación actual
 app.config['SESSION_TYPE'] = 'filesystem'  # O puedes usar otros tipos si prefieres
-
-
-#RUTAS RUTAS RUTAS RUTAS RUTAS
-# Dess      'sqlite:///D:/Inventario/instance/inventario.db'
-# Vic       'sqlite:///C:/Users/victor jireh/Desktop/Inventario/instance/inventario.db'  # Ruta de la base de datos
-# Hannya    
-# Hurtado   'sqlite:///C:/Users/diego/Desktop/Inventario/instance/inventario.db'
-# Yovis
-
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)  
 # Inicializar las extensiones
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-login_manager.login_message_category = 'info'  
+login_manager.login_message_category = 'info'
 
 # Inicializar Flask-Migrate
 migrate = Migrate(app, db)
 
+# Para evitar el cache de la sesión
 @app.after_request
 def no_cache(response):
     response.headers['Cache-Control'] = 'no-store'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     return response
+
+@app.before_request
+def before_request():
+    session.permanent = True
 
 # Cargar usuario para Flask-Login
 @login_manager.user_loader
@@ -64,7 +64,6 @@ class Producto(db.Model):
     cantidad = db.Column(db.Integer, nullable=False)
     imagen_url = db.Column(db.String(200), nullable=False)
     categoria = db.Column(db.String(100), nullable=False)
-
 
 # Ruta para actualizar un producto
 @app.route('/update_product', methods=['POST'])
@@ -102,6 +101,7 @@ def eliminar_producto(producto_id):
     flash('Producto eliminado exitosamente', 'success')
     return redirect(url_for('index'))
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -118,14 +118,14 @@ def login():
 
     return render_template('login.html')
 
+
 # Ruta de logout
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     session.clear()  # Limpia todos los datos en la sesión
     logout_user()  # Cerrar sesión
-    return redirect(url_for('login')) 
-    return '', 204  # Respuesta vacía y código 200 para indicar que la sesión se cerró correctamente
+    return redirect(url_for('login'))
 
 
 @app.route('/update_quantity', methods=['POST'])
@@ -158,20 +158,23 @@ def update_quantity():
 
     return redirect(url_for('index'))
 
-@app.route('/')
+
+@app.route('/', methods=['GET'])
 @login_required
 def index():
-    categoria = request.args.get('categoria')
-    
-    if categoria:
+    query = request.args.get('query')  # Obtener el término de búsqueda desde la URL
+    categoria = request.args.get('categoria')  # Obtener la categoría si se pasa
+
+    if query:  # Si hay un término de búsqueda, filtrar productos por nombre
+        productos = Producto.query.filter(Producto.nombre.ilike(f'%{query}%')).all()
+    elif categoria:  # Si hay una categoría seleccionada, filtrar por categoría
         productos = Producto.query.filter(Producto.categoria == categoria, Producto.cantidad > 0).all()
-    else:
+    else:  # Si no hay búsqueda ni categoría, mostrar todos los productos
         productos = Producto.query.filter(Producto.cantidad > 0).all()
-    
+
     productos_out_of_stock = Producto.query.filter_by(cantidad=0).all()
 
-    return render_template('index.html', productos=productos, productos_out_of_stock=productos_out_of_stock, categoria=categoria)
-
+    return render_template('index.html', productos=productos, productos_out_of_stock=productos_out_of_stock, categoria=categoria, query=query)
 
 
 @app.route('/agregar_producto', methods=['GET', 'POST'])
@@ -184,13 +187,12 @@ def agregar_producto():
         categoria = request.form['categoria']
 
 
- # Verificamos si el producto con ese nombre ya existe
+        # Verificamos si el producto con ese nombre ya existe
         producto_existente = Producto.query.filter_by(nombre=nombre).first()
 
         if producto_existente:
             flash("Ya existe un producto con ese nombre.", "danger")
             return redirect(url_for('index'))  # Redirigir a la página de inicio o la página correspondiente        
-
 
         # Verificar si se ha subido un archivo y si es válido
         if imagen and allowed_file(imagen.filename):
@@ -211,9 +213,9 @@ def agregar_producto():
     return render_template('agregar_producto.html')  # Esto se ejecuta si es GET
 
 
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
 
 # Rutas para manejar productos y demás...
 @app.route('/editar_producto/<int:producto_id>', methods=['GET', 'POST'])
@@ -241,6 +243,7 @@ def editar_producto(producto_id):
     # Si la petición es GET, se muestra el formulario de edición
     return render_template('editar_producto.html', producto=producto)
 
+
 # La ruta que maneja la edición debe ir antes de la sección final
 if __name__ == '__main__':
     app.run(debug=True)
@@ -258,6 +261,3 @@ def get_producto(producto_id):
         'categoria': producto.categoria,
         'imagen_url': producto.imagen_url
     }
-
-
-

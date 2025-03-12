@@ -9,7 +9,7 @@
 </head>
 <body>
   
-    <!-- Barra lateral izquierda -->
+    <!-- Barra lateral izquierda    originallll-->
     <div class="sidebar-left">
         <img src="/static/images/rocasalogo.png" alt="Logo">
         <!-- Ícono de inventario con refresco de página -->
@@ -51,9 +51,12 @@
             {% endif %}
 
             <div class="search-container">
-                <input type="text" placeholder="Buscar en el inventario...">
-                <button><i class="fas fa-search"></i></button>
+                <form method="GET" action="{{ url_for('index') }}">
+                    <input type="text" name="query" placeholder="Buscar en el inventario..." value="{{ query or '' }}">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
             </div>
+            
         </div>
 
         <!-- Productos en cuadrícula -->
@@ -133,7 +136,7 @@
     </div>
 
     <script>
-        // Funciones para abrir y cerrar el modal de edición
+        // Funciones para abrir y cerrar el modal de edición esta es la original uwu
         function openEditModal(productId) {
             const modal = document.getElementById('edit-modal');
             const form = document.getElementById('edit-form');
@@ -163,6 +166,7 @@
         }
     </script>
 
+
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="flash-messages">
@@ -172,6 +176,7 @@
             </div>
         {% endif %}
     {% endwith %}
+
 
     <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
