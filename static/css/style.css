@@ -495,3 +495,26 @@ th{
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+
+/* Estilo base para la tarjeta del producto */
+.product-card {
+  position: relative;
+  width: 250px; /* Ajusta el tamaño según tu necesidad */
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra normal */
+  transition: all 0.3s ease-in-out; /* Transición suave para el hover */
+}
+
+/* Efecto de hover con más sombra y aumento de tamaño */
+.product-card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra más grande */
+  transform: scale(1.05); /* Aumenta el tamaño de la tarjeta */
+}
+
+/* Estilo para la cantidad cuando es 1 */
+.low-stock {
+  color: red;  /* Cambia el color del texto a rojo */
+  font-weight: bold;  /* Puedes hacerlo negrita para mayor visibilidad */
+}

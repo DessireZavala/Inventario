@@ -5,18 +5,22 @@
     <title>Inventario - Sistema de Limpieza</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
   
     <!-- Barra lateral izquierda -->
     <div class="sidebar-left">
-        <img src="logo.png" alt="Logo">
+        <img src="/static/images/rocasalogo.png" alt="Logo">
         <!-- Ícono de inventario con refresco de página -->
         <i class="fas fa-box" onclick="location.href='/index'; window.location.reload();"></i>
         <!-- Ícono para agregar producto -->
         <i class="fas fa-plus" onclick="location.href='/agregar_producto'"></i>
-        <!-- Ícono para surtir producto (aún no implementado) -->
+        <!-- Ícono para surtir producto -->
         <i class="fas fa-truck" onclick="location.href='/surtir_producto'"></i>
+        <!-- Ícono para logout-->
+        <i class="fas fa-sign-out-alt" onclick="location.href='/logout'"></i>
+
     </div>
 
     <!-- Contenido principal -->
@@ -50,13 +54,19 @@
                         <form method="POST" action="{{ url_for('update_quantity') }}">
                             <input type="hidden" name="producto_id" value="{{ producto.id }}">
                             <button type="submit" class="btn" name="action" value="decrementar">-</button>
-                            {{ producto.cantidad }}
+                            <!-- Aquí se agrega la clase 'low-stock' si la cantidad es 1 -->
+                            <span class="{{ 'low-stock' if producto.cantidad == 1 else '' }}">
+                                {{ producto.cantidad }}
+                            </span>
                             <button type="submit" class="btn" name="action" value="incrementar">+</button>
                         </form>
                     </div>
                     <!-- Botón de editar producto -->
                     <div class="edit-btn">
-                        <button class="edit-product" onclick="openEditModal"{{ producto.id }}><i class="fas fa-pencil-alt"></i></button>
+                        <!-- Enlace para editar producto -->
+                        <a href="{{ url_for('editar_producto', producto_id=producto.id) }}">
+                            <i class="fa fa-pencil"></i> Editar
+                        </a>
                     </div>
                 </div>
             {% else %}
@@ -67,8 +77,8 @@
     </div>
 
     <!-- Modal de edición de producto -->
-    <div id="edit-modal" class="modal">
-        <div class="modal-content">
+    <div id="edit-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-content" role="document">
             <span class="close-btn" onclick="closeEditModal()">&times;</span>
             <h2>Editar Producto</h2>
             <form id="edit-form" method="POST">
@@ -152,6 +162,9 @@
     {% endwith %}
 
     <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -65,6 +65,43 @@ class Producto(db.Model):
     imagen_url = db.Column(db.String(200), nullable=False)
     categoria = db.Column(db.String(100), nullable=False)
 
+
+# Ruta para actualizar un producto
+@app.route('/update_product', methods=['POST'])
+@login_required
+def update_product():
+    producto_id = request.form['producto_id']
+    producto = Producto.query.get(producto_id)
+
+    if producto:
+        producto.nombre = request.form['nombre']
+        producto.cantidad = int(request.form['cantidad'])
+        producto.categoria = request.form['categoria']
+
+        # Manejo de imagen subida
+        if 'imagen' in request.files:
+            imagen = request.files['imagen']
+            if imagen and allowed_file(imagen.filename):
+                filename = secure_filename(imagen.filename)
+                imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                producto.imagen_url = filename
+
+        db.session.commit()
+        flash('Producto actualizado correctamente', 'success')
+    
+    return redirect(url_for('index'))
+
+
+# Ruta para eliminar un producto
+@app.route('/eliminar_producto/<int:producto_id>', methods=['GET'])
+@login_required
+def eliminar_producto(producto_id):
+    producto = Producto.query.get_or_404(producto_id)
+    db.session.delete(producto)
+    db.session.commit()
+    flash('Producto eliminado exitosamente', 'success')
+    return redirect(url_for('index'))
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -88,6 +125,7 @@ def logout():
     session.clear()  # Limpia todos los datos en la sesión
     logout_user()  # Cerrar sesión
     return '', 204  # Respuesta vacía y código 200 para indicar que la sesión se cerró correctamente
+
 
 @app.route('/update_quantity', methods=['POST'])
 @login_required
@@ -133,6 +171,8 @@ def index():
 
     return render_template('index.html', productos=productos, productos_out_of_stock=productos_out_of_stock, categoria=categoria)
 
+
+
 @app.route('/agregar_producto', methods=['GET', 'POST'])
 @login_required
 def agregar_producto():
@@ -142,26 +182,81 @@ def agregar_producto():
         imagen = request.files['imagen']
         categoria = request.form['categoria']
 
-        if nombre and cantidad and imagen and categoria:
-            if imagen and allowed_file(imagen.filename):
-                filename = secure_filename(imagen.filename)
-                imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-                nuevo_producto = Producto(nombre=nombre, cantidad=int(cantidad), imagen_url=filename, categoria=categoria)
-                db.session.add(nuevo_producto)
-                db.session.commit()
+ # Verificamos si el producto con ese nombre ya existe
+        producto_existente = Producto.query.filter_by(nombre=nombre).first()
 
-                flash('Producto agregado exitosamente', 'success')
-                return redirect(url_for('index'))
-            else:
-                flash('La imagen debe tener una extensión válida', 'danger')
+        if producto_existente:
+            flash("Ya existe un producto con ese nombre.", "danger")
+            return redirect(url_for('index'))  # Redirigir a la página de inicio o la página correspondiente        
+
+
+        # Verificar si se ha subido un archivo y si es válido
+        if imagen and allowed_file(imagen.filename):
+            filename = secure_filename(imagen.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            imagen.save(filepath)  # Guardar la imagen en el directorio especificado
+            imagen_url = filepath  # Guardar la ruta de la imagen
         else:
-            flash('Por favor complete todos los campos', 'danger')
+            imagen_url = None  # Si no se sube una imagen, no guardamos nada
 
-    return render_template('agregar_producto.html')
+        # Si no existe, agregamos el nuevo producto
+        nuevo_producto = Producto(nombre=nombre, cantidad=cantidad, categoria=categoria, imagen_url=imagen_url)
+        db.session.add(nuevo_producto)
+        db.session.commit()
+
+        flash("Producto agregado exitosamente.", "success")
+        return redirect(url_for('index'))  # Redirigir al listado de productos
+    return render_template('agregar_producto.html')  # Esto se ejecuta si es GET
+
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
+# Rutas para manejar productos y demás...
+@app.route('/editar_producto/<int:producto_id>', methods=['GET', 'POST'])
+@login_required
+def editar_producto(producto_id):
+    producto = Producto.query.get_or_404(producto_id)  # Buscar el producto por ID
+
+    if request.method == 'POST':  # Si es un POST (cuando el formulario se envía)
+        producto.nombre = request.form['nombre']  # Obtener datos del formulario
+        producto.cantidad = int(request.form['cantidad'])
+        producto.categoria = request.form['categoria']
+
+        # Verificar si se ha subido una nueva imagen
+        if 'imagen' in request.files:
+            imagen = request.files['imagen']
+            if imagen and allowed_file(imagen.filename):
+                filename = secure_filename(imagen.filename)
+                imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                producto.imagen_url = filename  # Guardar la nueva imagen
+
+        db.session.commit()  # Guardar cambios en la base de datos
+        flash('Producto actualizado correctamente', 'success')
+        return redirect(url_for('index'))  # Redirigir a la página principal
+
+    # Si la petición es GET, se muestra el formulario de edición
+    return render_template('editar_producto.html', producto=producto)
+
+# La ruta que maneja la edición debe ir antes de la sección final
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+# Ruta para obtener los detalles del producto
+@app.route('/producto/<int:producto_id>', methods=['GET'])
+@login_required
+def get_producto(producto_id):
+    producto = Producto.query.get_or_404(producto_id)
+    return {
+        'id': producto.id,
+        'nombre': producto.nombre,
+        'cantidad': producto.cantidad,
+        'categoria': producto.categoria,
+        'imagen_url': producto.imagen_url
+    }
+
+
+
