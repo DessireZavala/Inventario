@@ -152,15 +152,15 @@ body {
 
 .btn {
   padding: 5px 15px;
-  background-color: #2980b9;
-  border: none;
-  color: white;
+  background-color: #2980b9 !important;
+  border: none !important;
+  color: white !important;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 5px !important;
 }
 
 .btn:hover {
-  background-color: #3498db;
+  background-color: #3498db  !important;
 }
 
 /*! Barra lateral derecha (productos sin stock) */
@@ -206,17 +206,17 @@ h3 {
 
 /*! Estilos generales para las alertas */
 .alert {
-  padding: 15px;
-  border-radius: 8px;
-  color: #fff;
-  font-size: 16px;
-  text-align: center;
-  margin: 0;
+  padding: 15px  !important;
+  border-radius: 8px  !important;
+  color: #fff  !important;
+  font-size: 16px  !important;
+  text-align: center !important;
+  margin: 0  !important;
 }
 
 /*! Estilo para el mensaje de información */
 .alert-info {
-  background-color: #17a2b8 /* !important*..esto puedo sobreponerse a boostrap style*/; 
+  background-color: #17a2b8  !important/*..esto puedo sobreponerse a boostrap style*/; 
 }
 
 /*! Estilo para el mensaje de éxito */
