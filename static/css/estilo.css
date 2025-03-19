@@ -1,0 +1,342 @@
+/* Variables de colores */
+:root {
+    --primary-color: #F1B04C; /* Color principal */
+    --secondary-color: #1F1F1F; /* Color secundario (oscuro) */
+    --background-light: #f4f4f4; /* Fondo claro */
+    --text-color: #333; /* Color de texto principal */
+    --text-light: #fff; /* Texto claro */
+    --border-color: #ddd; /* Color de bordes */
+    --success-color: #1dd1a1; /* Color para estados positivos */
+    --warning-color: #ff6b6b; /* Color para advertencias */
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+    color: var(--text-color);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Barra lateral izquierda */
+.sidebar-left {
+    width: 80px;
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100vh; /* Ocupa el 100% del alto de la página */
+    position: fixed; /* Fija la barra lateral */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Asegura que esté por encima del contenido */
+}
+
+.sidebar-left img {
+    width: 50px;
+    margin-bottom: 30px;
+}
+
+.sidebar-left i {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-left i:hover {
+    transform: scale(1.2);
+    color: var(--text-light);
+}
+
+/* Contenido principal */
+.main-content {
+    flex-grow: 1;
+    margin-left: 80px; /* Margen izquierdo para la barra lateral izquierda */
+    margin-right: 250px; /* Margen derecho para la barra lateral derecha */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que ocupe el 100% del alto de la página */
+}
+
+/* Header */
+.header {
+    background-color: var(--secondary-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.categories a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.categories a:hover {
+    color: var(--text-light);
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    padding: 8px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+
+.search-container button {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #e69900;
+}
+
+/* Productos en cuadrícula */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background-color: var(--text-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+.quantity button {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity button:hover {
+    background-color: #e69900;
+}
+
+.quantity span {
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+.low-stock {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+.edit-btn a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.edit-btn a:hover {
+    color: #e69900;
+}
+
+/* Barra lateral derecha */
+.sidebar-right {
+    width: 250px;
+    background-color: var(--secondary-color);
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100vh; /* Ocupa el 100% del alto de la página */
+    position: fixed; /* Fija la barra lateral */
+    top: 0;
+    right: 0;
+    z-index: 1000; /* Asegura que esté por encima del contenido */
+    overflow-y: auto; /* Permite el desplazamiento si el contenido es muy largo */
+}
+
+.sidebar-right h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+/* Contenedor de productos sin stock */
+.product-out-of-stock {
+    background-color: var(--text-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.product-out-of-stock img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-out-of-stock button {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 12px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.product-out-of-stock button:hover {
+    background-color: #e69900;
+}
+
+.modal-content {
+    background-color: var(--text-light);
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #e69900;
+}
+
+.modal h2 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.modal input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.modal button {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.modal button:hover {
+    background-color: #e69900;
+}
+
+/* Mensajes flash */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.alert {
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    animation: slideIn 0.5s ease, fadeOut 0.5s ease 2.5s;
+}
+
+.alert-info {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

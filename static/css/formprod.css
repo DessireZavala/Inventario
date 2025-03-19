@@ -1,219 +1,149 @@
 :root {
-    --primary-color: #F1B04C;
-    --secondary-color: #007bff;
-    --danger-color: #ff4d4d;
-    --background-light: #f4f4f4;
-    --text-dark: #333;
-    --white: #ffffff;
-    --strong-white: #e6e0e0;
-    
-    --sidebar-width: 60px;
-    --border-radius: 8px;
-    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --primary-color: #F1B04C; /* Color principal */
+    --secondary-color: #1F1F1F; /* Color secundario (oscuro) */
+    --background-light: #f4f4f4; /* Fondo claro */
+    --text-color: #333; /* Color de texto principal */
+    --text-light: #fff; /* Texto claro */
+    --border-color: #ddd; /* Color de bordes */
+    --success-color: #1dd1a1; /* Color para estados positivos */
+    --warning-color: #ff6b6b; /* Color para advertencias */
 }
 
+/* Estilos generales */
 body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f5f0;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    background-color: var(--background-light);
     display: flex;
-    overflow: hidden;
 }
 
 /* Sidebar */
 .sidebar-left {
-    width: var(--sidebar-width);
-    background-color: var(--secondary-color);
+    width: 80px;
     height: 100vh;
-    padding-top: 20px;
+    background-color: var(--secondary-color);
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-left img {
-    width: 100px;
-    margin-bottom: 30px;
+    width: 50px;
+    margin-bottom: 20px;
 }
 
 .sidebar-left i {
-    color: var(--white);
+    color: var(--primary-color);
     font-size: 24px;
     margin: 20px 0;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .sidebar-left i:hover {
-    color: var(--primary-color);
+    transform: scale(1.2);
+    color: var(--text-light);
 }
 
-/* Contenido principal (formulario) */
+/* Contenido principal */
 .main-content {
-    margin-left: var(--sidebar-width);
-    padding: 20px;
     flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-/* Formulario */
 .form-container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
+    background: white;
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 500px;
-    width: 90%;
-    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 350px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 h2 {
-    color: #0f0f10;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-    font-weight: 600;
+    color: #F1B04C;
+    margin-bottom: 20px;
 }
 
-/* Grupos de formulario */
+/* Formularios */
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 15px;
+    text-align: left;
 }
 
-.form-group label {
+label {
     display: block;
-    color: #576574;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
 }
 
-/* Campos de entrada */
-input[type="text"],
-input[type="number"],
-select {
+input, select {
     width: 100%;
-    padding: 0.8rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-input:focus,
-select:focus {
-    border-color: #3498db;
+    padding: 10px;
+    border: 2px solid #F1B04C;
+    border-radius: 5px;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    transition: border-color 0.3s;
 }
 
-/* Estilos para carga de imagen */
+input:focus, select:focus {
+    border-color: #d98b3a;
+}
+
+/* Subir imagen */
 .image-upload {
-    position: relative;
-    text-align: center;
-    border: 2px dashed #e0e0e0;
-    border-radius: 8px;
-    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #F1B04C;
+    padding: 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s;
 }
 
 .image-upload:hover {
-    border-color: #3498db;
-    background: #f8f9ff;
-}
-
-.image-upload input[type="file"] {
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    cursor: pointer;
+    background: rgba(241, 176, 76, 0.2);
 }
 
 .image-upload i {
-    font-size: 2rem;
-    color: #3498db;
-    margin-bottom: 0.5rem;
-    display: block;
+    font-size: 30px;
+    color: #F1B04C;
 }
 
 .image-upload p {
-    color: #7f8c8d;
-    margin: 0;
-    font-size: 0.9rem;
+    margin: 5px 0;
+    color: #333;
+    font-size: 14px;
 }
 
+/* Botón */
 .btn {
-    background: #3498db;
+    background-color: #F1B04C;
     color: white;
     border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
+    padding: 12px;
     width: 100%;
-    transition: all 0.3s ease;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .btn:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+    background-color: #d98b3a;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .form-container {
-        padding: 1.5rem;
-        margin: 1rem;
-    }
-    
-    h2 {
-        font-size: 1.5rem;
-    }
-}
-
-/* Estilos para los mensajes flash */
-.flash-messages {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centrado exacto en la pantalla */
-    z-index: 9999;
-    display: none; /* Inicialmente oculto */
-    width: 80%; /* Ancho del contenedor */
-    max-width: 400px; /* Máximo tamaño */
-}
-
-/* Estilos generales para las alertas */
-.alert {
-    padding: 15px;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 16px;
-    text-align: center;
-    margin: 0;
-}
-
-/* Estilo para el mensaje de información */
-.alert-info {
-    background-color: #17a2b8; /* Azul */
-}
-
-/* Estilo para el mensaje de éxito */
-.alert-success {
-    background-color: #28a745; /* Verde */
-}
-
-/* Estilo para el mensaje de error */
-.alert-danger {
-    background-color: #dc3545; /* Rojo */
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

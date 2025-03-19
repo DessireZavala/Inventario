@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # Configuración de la clave secreta y la sesión originleeeeeee
 app.config['SECRET_KEY'] = 'supersecreto'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Inventario/instance/inventario.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/hanny/OneDrive/Documents/Inventario - copia/instance/inventario.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
