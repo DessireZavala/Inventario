@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # Configuración de la clave secreta y la sesión originleeeeeee
 app.config['SECRET_KEY'] = 'supersecreto'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/hanny/OneDrive/Documents/Inventario - copia/instance/inventario.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Inventario/instance/inventario.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
@@ -23,7 +23,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 #RUTAS RUTAS RUTAS RUTAS RUTAS
 # Dess      'sqlite:///D:/Inventario/instance/inventario.db'
 # Vic       'sqlite:///C:/Users/victor jireh/Desktop/Inventario/instance/inventario.db'  # Ruta de la base de datos
-# Hannya    
+# Hannya    'sqlite:///C:/Users/hanny/OneDrive/Documents/Inventario - copia/instance/inventario.db'
 # Hurtado   
 # Yovis     
 
@@ -183,6 +183,11 @@ def index():
     productos_out_of_stock = Producto.query.filter_by(cantidad=0).all()
 
     return render_template('index.html', productos=productos, productos_out_of_stock=productos_out_of_stock, categoria=categoria, query=query)
+
+@app.route('/surtir_producto', methods=['GET'])
+@login_required
+def surtir_producto():
+    return render_template('surtir_producto.html')
 
 
 @app.route('/agregar_producto', methods=['GET', 'POST'])
