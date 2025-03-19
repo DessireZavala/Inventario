@@ -199,31 +199,24 @@ def agregar_producto():
         imagen = request.files['imagen']
         categoria = request.form['categoria']
 
+        if nombre and cantidad and imagen and categoria:
+            if imagen and allowed_file(imagen.filename):
+                filename = secure_filename(imagen.filename)
+                imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        # Verificamos si el producto con ese nombre ya existe
-        producto_existente = Producto.query.filter_by(nombre=nombre).first()
+                nuevo_producto = Producto(nombre=nombre, cantidad=int(cantidad), imagen_url=filename, categoria=categoria)
+                db.session.add(nuevo_producto)
+                db.session.commit()
 
-        if producto_existente:
-            flash("Ya existe un producto con ese nombre.", "danger")
-            return redirect(url_for('index'))  # Redirigir a la página de inicio o la página correspondiente        
-
-        # Verificar si se ha subido un archivo y si es válido
-        if imagen and allowed_file(imagen.filename):
-            filename = secure_filename(imagen.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            imagen.save(filepath)  # Guardar la imagen en el directorio especificado
-            imagen_url = filepath  # Guardar la ruta de la imagen
+                flash('Producto agregado exitosamente', 'success')
+                return redirect(url_for('index'))
+            else:
+                flash('La imagen debe tener una extensión válida', 'danger')
         else:
-            imagen_url = None  # Si no se sube una imagen, no guardamos nada
+            flash('Por favor complete todos los campos', 'danger')
 
-        # Si no existe, agregamos el nuevo producto
-        nuevo_producto = Producto(nombre=nombre, cantidad=cantidad, categoria=categoria, imagen_url=imagen_url)
-        db.session.add(nuevo_producto)
-        db.session.commit()
+    return render_template('agregar_producto.html')
 
-        flash("Producto agregado exitosamente.", "success")
-        return redirect(url_for('index'))  # Redirigir al listado de productos
-    return render_template('agregar_producto.html')  # Esto se ejecuta si es GET
 
 
 def allowed_file(filename):
